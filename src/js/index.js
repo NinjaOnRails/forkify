@@ -10,7 +10,8 @@ import { elements } from './views/base';
 const state = {}
 
 const controlSearch = async () => {
-    const query = searchView.getInput;
+    const query = searchView.getInput();
+    console.log(query);
 
     if(query) {
         state.search = new Search(query);
