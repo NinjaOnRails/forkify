@@ -1,6 +1,6 @@
 import Search from './models/Search';
 import * as searchView from './views/searchView';
-import { elements } from './views/base';
+import { elements, renderLoader, clearLoader } from './views/base';
 
 // Global state of the app
 // - Search object
@@ -18,11 +18,13 @@ const controlSearch = async () => {
 
         searchView.clearInput();
         searchView.clearResults();
+        renderLoader(elements.searchRes);
 
         await state.search.getResults();
 
         // console.log(state.search.result);
 
+        clearLoader();
         searchView.renderResults(state.search.result);
     }
 }
