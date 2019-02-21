@@ -1,4 +1,27 @@
-// Global app controller
-import num from './test';
-const x = 23;
-console.log(`I imported ${num} from another module called test.js! Variable x is ${x}`);
+import Search from './models/Search';
+import * as searchView from './views/searchView';
+import { elements } from './views/base';
+
+// Global state of the app
+// - Search object
+// - Current recipe object
+// - Shopping list object
+// - Liked recipes
+const state = {}
+
+const controlSearch = async () => {
+    const query = searchView.getInput;
+
+    if(query) {
+        state.search = new Search(query);
+
+        await state.search.getResults();
+
+        searchView.renderResults(state.search.result);
+    }
+}
+
+elements.searchForm.addEventListener('submit', e => {
+    e.preventDefault();
+    controlSearch();
+});
